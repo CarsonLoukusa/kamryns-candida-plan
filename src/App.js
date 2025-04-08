@@ -8,6 +8,7 @@ import PhaseThree from './pages/PhaseThree';
 import MealPlanner from './pages/MealPlanner';
 import RecipeDatabase from './pages/RecipeDatabase';
 import ProgressTracker from './pages/ProgressTracker';
+import ChatAssistant from './pages/ChatAssistant';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/meal-planner" element={<MealPlanner />} />
             <Route path="/recipe-database" element={<RecipeDatabase />} />
             <Route path="/progress" element={<ProgressTracker />} />
+            <Route path="/assistant" element={<ChatAssistant />} />
           </Routes>
         </main>
         <Footer />
