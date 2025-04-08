@@ -170,6 +170,17 @@ const Navbar = () => {
             >
               Chat Assistant
             </Link>
+            
+            <Link
+              to="/shopping"
+              className={`px-3 py-2 rounded-md text-sm font-medium ${
+                location.pathname === '/shopping' 
+                  ? 'text-green-600 hover:text-green-700' 
+                  : 'text-gray-700 hover:text-gray-900'
+              }`}
+            >
+              Shopping Plan
+            </Link>
           </div>
           
           <div className="-mr-2 flex items-center sm:hidden">
@@ -301,6 +312,18 @@ const Navbar = () => {
             onClick={() => setIsMenuOpen(false)}
           >
             Chat Assistant
+          </Link>
+          
+          <Link
+            to="/shopping"
+            className={`block px-3 py-2 rounded-md text-base font-medium ${
+              location.pathname === '/shopping' 
+                ? 'text-green-600 bg-green-50' 
+                : 'text-gray-700 hover:bg-gray-50'
+            }`}
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Shopping Plan
           </Link>
         </div>
       </div>

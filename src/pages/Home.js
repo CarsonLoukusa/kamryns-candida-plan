@@ -76,6 +76,10 @@ const Home = () => {
                 <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-green-100 text-green-800 text-sm font-medium mr-2">5</span>
                 <span><Link to="/assistant" className="text-green-600 hover:text-green-800 font-medium">Ask questions</Link> about foods and symptoms</span>
               </li>
+              <li className="flex items-start">
+                <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-green-100 text-green-800 text-sm font-medium mr-2">6</span>
+                <span>Find <Link to="/shopping" className="text-green-600 hover:text-green-800 font-medium">shopping lists</Link> for each phase</span>
+              </li>
             </ul>
           </div>
         </div>
@@ -134,6 +138,12 @@ const Home = () => {
             className="inline-block bg-blue-600 text-white font-medium px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors"
           >
             Ask Diet Questions
+          </Link>
+          <Link
+            to="/shopping"
+            className="inline-block bg-teal-600 text-white font-medium px-6 py-3 rounded-lg hover:bg-teal-700 transition-colors"
+          >
+            View Shopping Plan
           </Link>
         </div>
       </div>

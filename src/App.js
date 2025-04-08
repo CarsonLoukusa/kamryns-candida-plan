@@ -9,6 +9,7 @@ import MealPlanner from './pages/MealPlanner';
 import RecipeDatabase from './pages/RecipeDatabase';
 import ProgressTracker from './pages/ProgressTracker';
 import ChatAssistant from './pages/ChatAssistant';
+import ShoppingPlan from './pages/ShoppingPlan';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
@@ -28,6 +29,7 @@ function App() {
             <Route path="/recipe-database" element={<RecipeDatabase />} />
             <Route path="/progress" element={<ProgressTracker />} />
             <Route path="/assistant" element={<ChatAssistant />} />
+            <Route path="/shopping" element={<ShoppingPlan />} />
           </Routes>
         </main>
         <Footer />
