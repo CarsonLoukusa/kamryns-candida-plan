@@ -1,5 +1,4 @@
 import React from 'react';
-import FoodList from '../components/FoodList';
 import { Link } from 'react-router-dom';
 
 const PhaseZero = () => {
