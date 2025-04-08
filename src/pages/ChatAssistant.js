@@ -51,7 +51,7 @@ const ChatAssistant = () => {
     'spinach': { allowed: [0, 1, 2, 3], notes: 'Excellent leafy green for all phases.' },
     'kale': { allowed: [0, 1, 2, 3], notes: 'Nutrient-dense leafy green good for all phases.' },
     'asparagus': { allowed: [0, 1, 2, 3], notes: 'Has natural anti-fungal properties. Great for all phases.' },
-    'cauliflower': { allowed: [0, 1, 2, 3], notes: 'Versatile non-starchy vegetable good for all phases.' },
+    'cauliflower': { allowed: [0, 1, 2, 3], notes: 'Versatile non-starchy vegetable for all phases.' },
     'brussels sprouts': { allowed: [0, 1, 2, 3], notes: 'Excellent cruciferous vegetable for all phases.' },
     'cabbage': { allowed: [0, 1, 2, 3], notes: 'Great for all phases and has anti-fungal properties.' },
     'celery': { allowed: [0, 1, 2, 3], notes: 'Good non-starchy vegetable for all phases.' },
@@ -71,7 +71,7 @@ const ChatAssistant = () => {
     'fennel': { allowed: [0, 1, 2, 3], notes: 'Good for digestion. Great in all phases.' },
     'green beans': { allowed: [0, 1, 2, 3], notes: 'Good non-starchy vegetable for all phases.' },
     'onions': { allowed: [0, 1, 2, 3], notes: 'Has anti-fungal properties. Good for all phases.' },
-    'garlic': { allowed: [0, 1, 2, 3], notes: 'Strong anti-fungal properties. Highly recommended in all phases.' },
+    'garlic': { allowed: [0, 1, 2, 3], notes: 'Strong anti-fungal properties. Highly recommended.' },
     'potatoes': { allowed: [3], notes: 'Starchy vegetable best saved for Phase 3.' },
     'sweet potatoes': { allowed: [2, 3], notes: 'Can be introduced in Phase 2 in small amounts.' },
     'carrots': { allowed: [1, 2, 3], notes: 'Higher in sugar than some vegetables. Use moderately.' },
@@ -84,16 +84,16 @@ const ChatAssistant = () => {
     'mushrooms': { allowed: [0, 1, 2, 3], notes: 'Some types have anti-fungal properties, but some people avoid fungi when treating fungal infections.' },
     
     // Fruits
-    'avocado': { allowed: [0, 1, 2, 3], notes: 'Not technically a fruit. Great source of healthy fats for all phases.' },
+    'avocado': { allowed: [0, 1, 2, 3], notes: 'Not technically a fruit. Great source of healthy fats.' },
     'lemon': { allowed: [0, 1, 2, 3], notes: 'Good for all phases. Helps with digestion.' },
     'lime': { allowed: [0, 1, 2, 3], notes: 'Good for all phases. Helps with digestion.' },
-    'berries': { allowed: [2, 3], notes: 'Lower sugar fruits that can be introduced in Phase 2 in small amounts.' },
+    'berries': { allowed: [2, 3], notes: 'Lower sugar fruits for Phase 2 in small amounts.' },
     'blueberries': { allowed: [2, 3], notes: 'Lower in sugar than many fruits. Can be introduced in Phase 2 in small amounts.' },
     'strawberries': { allowed: [2, 3], notes: 'Lower in sugar than many fruits. Can be introduced in Phase 2 in small amounts.' },
     'raspberries': { allowed: [2, 3], notes: 'Lower in sugar than many fruits. Can be introduced in Phase 2 in small amounts.' },
     'blackberries': { allowed: [2, 3], notes: 'Lower in sugar than many fruits. Can be introduced in Phase 2 in small amounts.' },
     'cranberries': { allowed: [2, 3], notes: 'Unsweetened only. Can be introduced in Phase 2 in small amounts.' },
-    'apples': { allowed: [2, 3], notes: 'Green apples are lower in sugar and better for Phase 2. Other varieties better for Phase 3.' },
+    'apples': { allowed: [2, 3], notes: 'Green apples are lower in sugar for Phase 2.' },
     'pears': { allowed: [3], notes: 'Higher in sugar. Best saved for Phase 3 in moderation.' },
     'peaches': { allowed: [3], notes: 'Higher in sugar. Best saved for Phase 3 in moderation.' },
     'plums': { allowed: [3], notes: 'Higher in sugar. Best saved for Phase 3 in moderation.' },
@@ -109,7 +109,7 @@ const ChatAssistant = () => {
     'dried fruit': { allowed: [], notes: 'Very concentrated sugar. Best avoided in all phases.' },
     
     // Grains
-    'rice': { allowed: [2, 3], notes: 'White rice is easier to digest. Can be introduced in Phase 2.' },
+    'rice': { allowed: [2, 3], notes: 'White rice is easier to digest. For Phase 2.' },
     'brown rice': { allowed: [3], notes: 'Contains more anti-nutrients than white rice. Better for Phase 3.' },
     'wild rice': { allowed: [2, 3], notes: 'Technically a grass seed. Can be introduced in Phase 2.' },
     'quinoa': { allowed: [2, 3], notes: 'Technically a seed. Can be introduced in Phase 2.' },
@@ -117,21 +117,21 @@ const ChatAssistant = () => {
     'buckwheat': { allowed: [2, 3], notes: 'Despite the name, it is gluten-free. Can be introduced in Phase 2.' },
     'amaranth': { allowed: [2, 3], notes: 'Can be introduced in Phase 2.' },
     'teff': { allowed: [2, 3], notes: 'Can be introduced in Phase 2.' },
-    'oats': { allowed: [2, 3], notes: 'Can be introduced in Phase 2 if gluten-free. Watch for reactions.' },
+    'oats': { allowed: [2, 3], notes: 'Can be introduced in Phase 2 if gluten-free.' },
     'wheat': { allowed: [3], notes: 'Contains gluten. Save for Phase 3, if tolerated at all.' },
     'barley': { allowed: [3], notes: 'Contains gluten. Save for Phase 3, if tolerated at all.' },
     'rye': { allowed: [3], notes: 'Contains gluten. Save for Phase 3, if tolerated at all.' },
     'corn': { allowed: [3], notes: 'Often triggers reactions and may contain mold. Best saved for Phase 3, if at all.' },
-    'bread': { allowed: [3], notes: 'Regular bread contains gluten and yeast. Avoid until Phase 3, if at all.' },
+    'bread': { allowed: [3], notes: 'Regular bread contains gluten and yeast. For Phase 3.' },
     'pasta': { allowed: [3], notes: 'Regular pasta contains gluten. Avoid until Phase 3, if at all. Zucchini or shirataki noodles are better alternatives.' },
     'couscous': { allowed: [3], notes: 'Contains gluten. Save for Phase 3, if tolerated at all.' },
     'bulgur': { allowed: [3], notes: 'Contains gluten. Save for Phase 3, if tolerated at all.' },
     'gluten': { allowed: [3], notes: 'Best avoided until Phase 3, if tolerated at all.' },
     
     // Dairy
-    'milk': { allowed: [3], notes: 'Dairy can feed candida. Best avoided until Phase 3, if at all.' },
-    'cheese': { allowed: [3], notes: 'Aged cheeses might be okay in Phase 3. Avoid in earlier phases.' },
-    'yogurt': { allowed: [2, 3], notes: 'Unsweetened, probiotic yogurt can be introduced in Phase 2. Coconut yogurt is often better tolerated.' },
+    'milk': { allowed: [3], notes: 'Dairy can feed candida. Best avoided until Phase 3.' },
+    'cheese': { allowed: [3], notes: 'Aged cheeses might be okay in Phase 3.' },
+    'yogurt': { allowed: [2, 3], notes: 'Unsweetened, probiotic yogurt for Phase 2.' },
     'kefir': { allowed: [2, 3], notes: 'Unsweetened kefir can be introduced in Phase 2.' },
     'butter': { allowed: [2, 3], notes: 'Ghee (clarified butter) is better tolerated than regular butter and can be used in Phase 2.' },
     'ghee': { allowed: [1, 2, 3], notes: 'Clarified butter with milk solids removed. Generally well tolerated from Phase 1.' },
@@ -156,16 +156,16 @@ const ChatAssistant = () => {
     'pumpkin seeds': { allowed: [1, 2, 3], notes: 'Good in moderation from Phase 1.' },
     'sunflower seeds': { allowed: [1, 2, 3], notes: 'Good in moderation from Phase 1.' },
     'sesame seeds': { allowed: [1, 2, 3], notes: 'Good in moderation from Phase 1.' },
-    'peanuts': { allowed: [3], notes: 'Often contain mold. Best saved for Phase 3, if at all.' },
+    'peanuts': { allowed: [3], notes: 'Often contain mold. Best saved for Phase 3.' },
     'peanut butter': { allowed: [3], notes: 'Often contains mold. Best saved for Phase 3, if at all.' },
     
     // Sweeteners
     'sugar': { allowed: [], notes: 'Feeds candida directly. Avoid in all phases.' },
-    'honey': { allowed: [3], notes: 'Natural but still high in sugar. Small amounts in Phase 3 only.' },
-    'maple syrup': { allowed: [3], notes: 'Natural but still high in sugar. Small amounts in Phase 3 only.' },
+    'honey': { allowed: [3], notes: 'Natural but still high in sugar. Small amounts in Phase 3.' },
+    'maple syrup': { allowed: [3], notes: 'Natural but still high in sugar. Small amounts in Phase 3.' },
     'agave': { allowed: [], notes: 'High in fructose. Avoid in all phases.' },
-    'coconut sugar': { allowed: [3], notes: 'Natural but still high in sugar. Small amounts in Phase 3 only.' },
-    'stevia': { allowed: [0, 1, 2, 3], notes: 'Natural non-sugar sweetener. Generally acceptable in all phases in moderation.' },
+    'coconut sugar': { allowed: [3], notes: 'Natural but still high in sugar. Small amounts in Phase 3.' },
+    'stevia': { allowed: [0, 1, 2, 3], notes: 'Natural sweetener acceptable in all phases.' },
     'monk fruit': { allowed: [0, 1, 2, 3], notes: 'Natural non-sugar sweetener. Generally acceptable in all phases in moderation.' },
     'erythritol': { allowed: [1, 2, 3], notes: 'Sugar alcohol that doesn\'t feed candida. Acceptable in moderation.' },
     'xylitol': { allowed: [1, 2, 3], notes: 'Sugar alcohol that doesn\'t feed candida. Some people experience digestive discomfort.' },
@@ -175,19 +175,19 @@ const ChatAssistant = () => {
     
     // Beverages
     'water': { allowed: [0, 1, 2, 3], notes: 'Filtered water is best. Essential in all phases.' },
-    'coffee': { allowed: [2, 3], notes: 'Small amounts in later phases. Can cause issues for some people.' },
+    'coffee': { allowed: [2, 3], notes: 'Small amounts in later phases.' },
     'black tea': { allowed: [2, 3], notes: 'Contains some caffeine. Better introduced in Phase 2 or 3.' },
     'green tea': { allowed: [1, 2, 3], notes: 'Contains antioxidants and some anti-fungal properties. Moderate amounts acceptable from Phase 1.' },
     'herbal tea': { allowed: [0, 1, 2, 3], notes: 'Most herbal teas are fine. Especially beneficial: pau d\'arco, ginger, peppermint.' },
-    'tea': { allowed: [0, 1, 2, 3], notes: 'Herbal teas are best. Green tea in moderation. Avoid black tea until later phases.' },
-    'alcohol': { allowed: [], notes: 'Feeds candida and weakens the immune system. Avoid in all phases.' },
+    'tea': { allowed: [0, 1, 2, 3], notes: 'Herbal teas are best. Green tea in moderation.' },
+    'alcohol': { allowed: [], notes: 'Avoid in all phases.' },
     'wine': { allowed: [], notes: 'Contains sugar and yeast. Avoid in all phases, though some practitioners allow very small amounts of dry red wine in Phase 3.' },
     'beer': { allowed: [], notes: 'Contains gluten, yeast, and fermentable carbs. Avoid in all phases.' },
     'spirits': { allowed: [], notes: 'Hard alcohol weakens the immune system. Avoid in all phases.' },
     'soda': { allowed: [], notes: 'Contains sugar and other problematic ingredients. Avoid in all phases.' },
     'juice': { allowed: [], notes: 'Even natural fruit juices are concentrated sugar. Avoid in all phases.' },
     'coconut water': { allowed: [3], notes: 'Contains natural sugars. Small amounts in Phase 3 only.' },
-    'kombucha': { allowed: [2, 3], notes: 'Contains beneficial probiotics but also some sugar and yeast. Better for Phase 2 or 3.' },
+    'kombucha': { allowed: [2, 3], notes: 'Better for Phase 2 or 3.' },
     'kefir': { allowed: [2, 3], notes: 'Unsweetened only. Can be introduced in Phase 2.' },
     'almond milk': { allowed: [0, 1, 2, 3], notes: 'Unsweetened only. Good alternative to dairy milk in all phases.' },
     'coconut milk': { allowed: [0, 1, 2, 3], notes: 'Unsweetened only. Good alternative to dairy milk in all phases.' },
@@ -195,7 +195,7 @@ const ChatAssistant = () => {
     'rice milk': { allowed: [2, 3], notes: 'Unsweetened only. Better introduced in Phase 2 or 3.' },
     
     // Oils
-    'coconut oil': { allowed: [0, 1, 2, 3], notes: 'Has anti-fungal properties. Excellent for all phases.' },
+    'coconut oil': { allowed: [0, 1, 2, 3], notes: 'Has anti-fungal properties.' },
     'olive oil': { allowed: [0, 1, 2, 3], notes: 'Good source of healthy fats for all phases.' },
     'avocado oil': { allowed: [0, 1, 2, 3], notes: 'Good source of healthy fats for all phases.' },
     'flaxseed oil': { allowed: [0, 1, 2, 3], notes: 'Good source of omega-3s, but don\'t cook with it.' },
@@ -313,104 +313,35 @@ const ChatAssistant = () => {
       }
     }
     
-    // Check if asking general questions about what to eat in specific phases
-    if (lowercaseInput.includes('what') && lowercaseInput.includes('eat') && lowercaseInput.includes('phase 0') || 
-        lowercaseInput.includes('what') && lowercaseInput.includes('eat') && lowercaseInput.includes('cleanup')) {
-      return "During Phase 0 (14-Day Cleanup), focus on: non-starchy vegetables (broccoli, cauliflower, leafy greens), clean proteins (organic chicken, wild fish, grass-fed meat), healthy fats (olive oil, coconut oil, avocados), herbs and spices. Gradually reduce caffeine, alcohol, sugar, and processed foods. Avoid: moldy foods, leftover foods stored too long, sugary items, processed foods, fruit juices, sodas, alcohol, artificial sweeteners.";
-    }
-    
-    if (lowercaseInput.includes('what') && lowercaseInput.includes('eat') && lowercaseInput.includes('phase 1') || 
-        lowercaseInput.includes('what') && lowercaseInput.includes('eat') && lowercaseInput.includes('mevy')) {
-      return "Phase 1 (MEVY Diet) focuses on: Meat (organic/grass-fed), Eggs (if tolerated), Vegetables (non-starchy), and Yogurt (sugar-free, probiotic). Also allowed: non-starchy vegetables, healthy fats (coconut oil, olive oil, avocados), nuts and seeds in moderation, herbs, spices, and herbal teas. Avoid: starchy vegetables, fruits, grains, beans, dairy (except yogurt), alcohol, coffee, processed foods, and all sugars.";
-    }
-    
-    if (lowercaseInput.includes('what') && lowercaseInput.includes('eat') && lowercaseInput.includes('phase 2') || 
-        lowercaseInput.includes('what') && lowercaseInput.includes('eat') && lowercaseInput.includes('low allergy')) {
-      return "During Phase 2 (Low Allergy Diet), you can include everything from Phase 1 plus: low-sugar fruits (berries, green apples), gluten-free grains (quinoa, millet, buckwheat), more nuts and seeds, legumes in moderation, unsweetened coconut yogurt, and some probiotic foods. Still avoid: gluten, dairy products (except for plain yogurt), high-sugar fruits, alcohol, processed foods, and all added sugars.";
-    }
-    
-    if (lowercaseInput.includes('what') && lowercaseInput.includes('eat') && lowercaseInput.includes('phase 3') || 
-        lowercaseInput.includes('what') && lowercaseInput.includes('eat') && lowercaseInput.includes('reintroduction')) {
-      return "In Phase 3 (Food Reintroduction), you can gradually reintroduce foods one at a time to test for reactions. The recommended reintroduction order is: non-gluten grains first, then legumes, low-sugar fruits, starchy vegetables, dairy, and finally gluten-containing grains (if tolerated). Still limit or avoid: refined sugars, processed foods, alcohol, and foods that caused reactions during testing.";
-    }
-
-    // Check for questions about avoiding foods
-    if ((lowercaseInput.includes('avoid') || lowercaseInput.includes('not eat') || lowercaseInput.includes('shouldn\'t eat')) && 
-        (lowercaseInput.includes('phase 0') || lowercaseInput.includes('cleanup'))) {
-      return "In Phase 0, avoid: old condiments/sauces, jams/jellies, bottles with potential mold, old herbs/spices, leftover foods stored too long, sugary items (candy, cookies), processed snacks, fruit juices, sodas, alcohol, artificial sweeteners, and highly processed foods. Gradually reduce: caffeine, alcohol, sugar, refined carbs, and fast food.";
-    }
-    
-    if ((lowercaseInput.includes('avoid') || lowercaseInput.includes('not eat') || lowercaseInput.includes('shouldn\'t eat')) && 
-        (lowercaseInput.includes('phase 1') || lowercaseInput.includes('mevy'))) {
-      return "In Phase 1, strictly avoid: all sugars (including natural ones like honey), fruits (except lemons/limes), starchy vegetables (potatoes, corn), all grains and flour products, beans and legumes, dairy (except sugar-free yogurt), alcohol of any kind, coffee, processed foods, condiments with sugar, fermented foods (except yogurt), and all foods with yeast, including breads.";
-    }
-    
-    // Check for questions about specific phases
-    if (lowercaseInput.includes('phase 0') || lowercaseInput.includes('cleanup') || lowercaseInput.includes('preparation')) {
-      return "Phase 0 (14-Day Cleanup) is about preparing your body and kitchen. This phase helps minimize withdrawal symptoms and die-off reactions. You'll gradually reduce caffeine, alcohol, sugar, and processed foods while removing moldy items from your kitchen. This phase typically lasts 14 days and serves as a gentler transition into the stricter Phase 1.";
+    // Check for questions about phases
+    if (lowercaseInput.includes('phase 0') || lowercaseInput.includes('cleanup')) {
+      return "Phase 0 (14-Day Cleanup) is about preparing your body and kitchen for the candida diet. You'll gradually reduce caffeine, alcohol, sugar, and processed foods while removing moldy items from your kitchen.";
     }
     
     if (lowercaseInput.includes('phase 1') || lowercaseInput.includes('mevy')) {
-      return "Phase 1 (MEVY Diet) focuses on Meat, Eggs, Vegetables, and Yogurt. This is the most restrictive phase, designed to starve the candida while keeping your body nourished. You'll focus on non-starchy vegetables, clean proteins, and healthy fats. Avoid fruits, grains, beans, most dairy, and all sugars. This phase typically lasts 3-4 weeks, depending on your symptoms.";
+      return "Phase 1 (MEVY Diet) focuses on Meat, Eggs, Vegetables, and Yogurt. This phase is designed to starve the candida while keeping your body nourished. Avoid fruits, grains, and most dairy during this phase.";
     }
     
     if (lowercaseInput.includes('phase 2') || lowercaseInput.includes('low allergy')) {
-      return "Phase 2 (Low Allergy Diet) introduces more foods while avoiding common allergens. You can begin adding certain low-sugar fruits, non-gluten grains, nuts, seeds, and legumes. This phase helps calm your immune system while continuing to fight candida. Typically lasts 2-8 weeks, and you'll still avoid gluten, dairy (except yogurt), high-sugar foods, and processed items.";
+      return "Phase 2 (Low Allergy Diet) introduces more foods while avoiding common allergens. You can begin adding certain nuts, seeds, and non-gluten grains. This phase helps calm your immune system while continuing to fight candida.";
     }
     
     if (lowercaseInput.includes('phase 3') || lowercaseInput.includes('reintroduction')) {
-      return "Phase 3 (Food Reintroduction) is about systematically reintroducing foods to identify sensitivities. You'll add one food at a time, every 3-4 days, while monitoring for reactions. This creates a personalized diet that keeps candida in check while being sustainable long-term. Follow the recommended reintroduction order: non-gluten grains first, then legumes, fruits, starchy vegetables, dairy, and finally gluten grains if tolerated.";
+      return "Phase 3 (Food Reintroduction) is about systematically reintroducing foods to identify sensitivities. You'll add one food at a time, monitor for reactions, and build a personalized long-term diet plan.";
     }
     
-    // Expanded symptoms information
-    if (lowercaseInput.includes('symptoms') || lowercaseInput.includes('die-off') || lowercaseInput.includes('herx') || lowercaseInput.includes('feeling worse')) {
-      return "Candida die-off symptoms (Herxheimer reaction) happen when candida cells die and release toxins. Common symptoms include: fatigue, brain fog, headaches, digestive issues (gas, bloating, constipation, diarrhea), skin breakouts or rashes, joint pain, increased mucus production, sore throat, flu-like symptoms, and mood changes (irritability, anxiety). To manage these: stay hydrated, get rest, support liver function (milk thistle, dandelion), take Epsom salt baths, consider activated charcoal (away from medications), and gradually implement diet changes. Most die-off symptoms peak within 3-7 days and then improve.";
-    }
-
-    // Check for symptom improvements
-    if (lowercaseInput.includes('feel better') || lowercaseInput.includes('how long') && lowercaseInput.includes('improve') || 
-        lowercaseInput.includes('when') && lowercaseInput.includes('better')) {
-      return "Most people begin feeling some improvements within 2-4 weeks on the candida diet. Initial die-off symptoms might make you feel worse for about 3-7 days before improvement. Energy levels, mental clarity, and digestive issues often improve first. Skin issues may take 4-6 weeks to show significant improvement. Complete recovery varies greatly—from 3 months to over a year depending on severity and how strictly you follow the protocol. Everyone's healing journey is unique, so be patient with your body.";
+    // Check for symptoms questions
+    if (lowercaseInput.includes('symptoms') || lowercaseInput.includes('die-off') || lowercaseInput.includes('herx')) {
+      return "Candida die-off symptoms can include fatigue, brain fog, digestive issues, and skin breakouts. These are temporary as your body eliminates toxins. Staying hydrated, getting rest, and supporting detox pathways can help manage these symptoms.";
     }
     
-    // Check for duration questions
+    // General questions about the diet
     if (lowercaseInput.includes('how long') || lowercaseInput.includes('duration')) {
-      return "The typical candida diet protocol takes 3-6 months total, though some people need longer. Phase 0 (Cleanup) is 14 days, Phase 1 (MEVY Diet) usually lasts 3-4 weeks, Phase 2 (Low Allergy) lasts 2-8 weeks depending on symptom improvement, and Phase 3 (Reintroduction) takes about 2-4 weeks. Move through phases based on your symptoms, not a strict timeline. Some people with severe candida overgrowth may need 6-12 months for complete healing.";
-    }
-
-    // Probiotics and supplements
-    if (lowercaseInput.includes('probiotic') || lowercaseInput.includes('supplement')) {
-      return "Supplements that can help with candida include: Probiotics (S. boulardii and L. acidophilus are particularly helpful), antifungals (caprylic acid, oregano oil, garlic extract, berberine), biofilm disruptors (NAC, enzymes), liver support (milk thistle, dandelion), and digestive support (digestive enzymes, betaine HCl). Always introduce supplements gradually and consider working with a healthcare practitioner. Timing matters: take probiotics away from antifungals, and many supplements are best taken with food.";
-    }
-    
-    // Check for cheating questions
-    if (lowercaseInput.includes('cheat') || lowercaseInput.includes('slip up') || lowercaseInput.includes('fell off')) {
-      return "If you have a dietary 'slip-up' on the candida diet: Don't panic or feel guilty—just get back on track with your next meal. A single deviation won't ruin your progress, but consistent cheating will extend healing time. You might experience a temporary return of symptoms after eating trigger foods. Consider taking extra antifungals or activated charcoal after a slip-up (away from medications). Use the experience to notice how certain foods affect you, which can be valuable information. The most important thing is consistency over perfection.";
-    }
-
-    // Check for sugar questions
-    if (lowercaseInput.includes('sugar') || lowercaseInput.includes('sweet') || lowercaseInput.includes('crave')) {
-      return "Sugar cravings are common during candida treatment as the yeast 'demands' its food source. To manage cravings: use stevia or monk fruit as sugar alternatives, try L-glutamine supplements (3-5g), increase healthy fats and protein, use cinnamon to help stabilize blood sugar, stay hydrated, and consider chromium supplements. Cravings usually diminish significantly after 2-3 weeks on the diet. If intense cravings persist beyond a month, consult your healthcare provider about possible blood sugar issues or additional candida support.";
-    }
-
-    // Questions about alcohol
-    if (lowercaseInput.includes('alcohol') || lowercaseInput.includes('wine') || lowercaseInput.includes('beer') || 
-        lowercaseInput.includes('drink')) {
-      return "Alcohol should be avoided during candida treatment because: it's high in sugars and carbs that feed candida, it's fermented using yeasts, it damages the gut lining, compromises immune function, and burdens the liver which is essential for detoxification. If you must drink socially, dry red wine in very small amounts is the least problematic but still not recommended until Phase 3. Better alternatives are sparkling water with lime, herbal teas, or water with apple cider vinegar and stevia.";
-    }
-
-    // Questions about testing
-    if (lowercaseInput.includes('test') || lowercaseInput.includes('diagnose') || lowercaseInput.includes('confirm')) {
-      return "Common tests for candida overgrowth include: Comprehensive Stool Analysis, Organic Acids Test (OAT), Candida Antibodies Test, and the Candida Spit Test (less reliable home method). Your healthcare provider might also consider your symptom history and response to treatment. No single test is perfect—sometimes a combination of tests plus clinical assessment gives the most accurate picture. Testing before and after treatment can help confirm improvement.";
-    }
-    
-    // General recommendations for success
-    if (lowercaseInput.includes('tips') || lowercaseInput.includes('success') || lowercaseInput.includes('advice')) {
-      return "Tips for candida diet success: 1) Meal prep to avoid hunger-based poor choices, 2) Stay hydrated with filtered water, 3) Manage stress through meditation, yoga, or breathing exercises, 4) Get 7-9 hours of quality sleep, 5) Support detoxification with infrared saunas or Epsom salt baths, 6) Exercise moderately—excessive exercise can stress the body, 7) Rotate your antifungals to prevent resistance, 8) Address environmental mold exposure if present, 9) Consider biofilm disruptors if progress plateaus, and 10) Work with a knowledgeable healthcare provider for personalized support.";
+      return "The typical candida diet protocol takes 3-6 months total, depending on your symptoms and progress. Phase 1 usually lasts 3-4 weeks, Phase 2 lasts 2-8 weeks, and Phase 3 lasts 2-4 weeks. Everyone's journey is different, and it's important to move through the phases at your own pace.";
     }
     
     // Default response if no specific match
-    return "I'm not sure about that specific question. Try asking about foods allowed in different phases, symptoms you're experiencing, supplements that might help, or general diet guidelines. I'm here to support your candida healing journey! Feel free to be more specific with your question.";
+    return "I'm not sure about that specific question. Try asking about a specific food, phase of the diet, or symptoms you're experiencing. I'm here to help with your candida diet journey!";
   };
 
   return (
