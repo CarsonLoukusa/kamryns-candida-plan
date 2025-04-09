@@ -181,6 +181,17 @@ const Navbar = () => {
             >
               Shopping Plan
             </Link>
+            
+            <Link
+              to="/water-fast"
+              className={`px-3 py-2 rounded-md text-sm font-medium ${
+                location.pathname === '/water-fast' 
+                  ? 'text-green-600 hover:text-green-700' 
+                  : 'text-gray-700 hover:text-gray-900'
+              }`}
+            >
+              Water Fast
+            </Link>
           </div>
           
           <div className="-mr-2 flex items-center sm:hidden">
@@ -324,6 +335,18 @@ const Navbar = () => {
             onClick={() => setIsMenuOpen(false)}
           >
             Shopping Plan
+          </Link>
+          
+          <Link
+            to="/water-fast"
+            className={`block px-3 py-2 rounded-md text-base font-medium ${
+              location.pathname === '/water-fast' 
+                ? 'text-green-600 bg-green-50' 
+                : 'text-gray-700 hover:bg-gray-50'
+            }`}
+            onClick={() => setIsMenuOpen(false)}
+          >
+            Water Fast
           </Link>
         </div>
       </div>

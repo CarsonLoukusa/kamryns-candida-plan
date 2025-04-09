@@ -80,6 +80,10 @@ const Home = () => {
                 <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-green-100 text-green-800 text-sm font-medium mr-2">6</span>
                 <span>Find <Link to="/shopping" className="text-green-600 hover:text-green-800 font-medium">shopping lists</Link> for each phase</span>
               </li>
+              <li className="flex items-start">
+                <span className="inline-flex items-center justify-center h-6 w-6 rounded-full bg-green-100 text-green-800 text-sm font-medium mr-2">7</span>
+                <span>Track your <Link to="/water-fast" className="text-green-600 hover:text-green-800 font-medium">water fast</Link> progress</span>
+              </li>
             </ul>
           </div>
         </div>
@@ -144,6 +148,12 @@ const Home = () => {
             className="inline-block bg-teal-600 text-white font-medium px-6 py-3 rounded-lg hover:bg-teal-700 transition-colors"
           >
             View Shopping Plan
+          </Link>
+          <Link
+            to="/water-fast"
+            className="inline-block bg-cyan-600 text-white font-medium px-6 py-3 rounded-lg hover:bg-cyan-700 transition-colors"
+          >
+            Track Water Fast
           </Link>
         </div>
       </div>

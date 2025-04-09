@@ -1,0 +1,280 @@
+import React, { useState, useEffect } from 'react';
+
+const WaterFast = () => {
+  // State for fast duration and water tracking
+  const [fastDuration, setFastDuration] = useState(24); // Default to 24 hours
+  const [fastStartTime, setFastStartTime] = useState(null);
+  const [waterIntake, setWaterIntake] = useState(0);
+  const [waterToAdd, setWaterToAdd] = useState(8); // Default to 8 oz
+  const [timeRemaining, setTimeRemaining] = useState(null);
+  const [isFasting, setIsFasting] = useState(false);
+  
+  const WATER_GOAL = 50; // Kamryn's daily water goal in ounces
+  
+  // Load saved data from localStorage on component mount
+  useEffect(() => {
+    const savedFastStart = localStorage.getItem('fastStartTime');
+    const savedFastDuration = localStorage.getItem('fastDuration');
+    const savedWaterIntake = localStorage.getItem('waterIntake');
+    const savedIsFasting = localStorage.getItem('isFasting');
+    
+    if (savedFastStart) setFastStartTime(parseInt(savedFastStart));
+    if (savedFastDuration) setFastDuration(parseInt(savedFastDuration));
+    if (savedWaterIntake) setWaterIntake(parseInt(savedWaterIntake));
+    if (savedIsFasting) setIsFasting(savedIsFasting === 'true');
+  }, []);
+  
+  // Update time remaining every second
+  useEffect(() => {
+    let timer;
+    
+    if (isFasting && fastStartTime) {
+      timer = setInterval(() => {
+        const now = Date.now();
+        const endTime = fastStartTime + (fastDuration * 60 * 60 * 1000);
+        const remaining = endTime - now;
+        
+        if (remaining <= 0) {
+          setTimeRemaining(0);
+          setIsFasting(false);
+          localStorage.setItem('isFasting', 'false');
+          clearInterval(timer);
+        } else {
+          setTimeRemaining(remaining);
+        }
+      }, 1000);
+    }
+    
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [isFasting, fastStartTime, fastDuration]);
+  
+  // Save to localStorage when values change
+  useEffect(() => {
+    if (isFasting) {
+      localStorage.setItem('fastStartTime', fastStartTime);
+      localStorage.setItem('fastDuration', fastDuration);
+      localStorage.setItem('isFasting', isFasting);
+    }
+    localStorage.setItem('waterIntake', waterIntake);
+  }, [fastStartTime, fastDuration, waterIntake, isFasting]);
+  
+  // Start a new fast
+  const startFast = () => {
+    const startTime = Date.now();
+    setFastStartTime(startTime);
+    setIsFasting(true);
+    localStorage.setItem('fastStartTime', startTime);
+    localStorage.setItem('isFasting', 'true');
+  };
+  
+  // End current fast
+  const endFast = () => {
+    setIsFasting(false);
+    setTimeRemaining(null);
+    localStorage.setItem('isFasting', 'false');
+  };
+  
+  // Reset water intake (typically for a new day)
+  const resetWater = () => {
+    setWaterIntake(0);
+    localStorage.setItem('waterIntake', 0);
+  };
+  
+  // Add water to daily intake
+  const addWater = () => {
+    const newAmount = waterIntake + parseInt(waterToAdd);
+    setWaterIntake(newAmount);
+    localStorage.setItem('waterIntake', newAmount);
+  };
+  
+  // Format time remaining
+  const formatTimeRemaining = (ms) => {
+    if (!ms) return '--:--:--';
+    
+    const totalSeconds = Math.floor(ms / 1000);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  };
+  
+  // Format duration options
+  const formatDurationOption = (hours) => {
+    if (hours < 24) {
+      return `${hours} hours`;
+    } else {
+      const days = Math.floor(hours / 24);
+      const remainingHours = hours % 24;
+      return remainingHours 
+        ? `${days} day${days > 1 ? 's' : ''}, ${remainingHours} hour${remainingHours > 1 ? 's' : ''}` 
+        : `${days} day${days > 1 ? 's' : ''}`;
+    }
+  };
+
+  return (
+    <div className="max-w-5xl mx-auto py-8 px-4">
+      <h1 className="text-3xl font-bold mb-6">Kamryn's Water Fast Tracker</h1>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {/* Fast duration tracker */}
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <h2 className="text-2xl font-semibold mb-4">Fast Duration</h2>
+          
+          {!isFasting ? (
+            <div className="space-y-6">
+              <div>
+                <label htmlFor="fastDuration" className="block text-sm font-medium text-gray-700 mb-2">
+                  Select fast duration:
+                </label>
+                <select 
+                  id="fastDuration"
+                  className="w-full p-2 border border-gray-300 rounded-md"
+                  value={fastDuration}
+                  onChange={(e) => setFastDuration(Number(e.target.value))}
+                >
+                  <option value="12">{formatDurationOption(12)}</option>
+                  <option value="16">{formatDurationOption(16)}</option>
+                  <option value="18">{formatDurationOption(18)}</option>
+                  <option value="24">{formatDurationOption(24)}</option>
+                  <option value="36">{formatDurationOption(36)}</option>
+                  <option value="48">{formatDurationOption(48)}</option>
+                  <option value="72">{formatDurationOption(72)}</option>
+                </select>
+              </div>
+              
+              <button 
+                onClick={startFast}
+                className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-4 rounded-md transition"
+              >
+                Start Fast
+              </button>
+            </div>
+          ) : (
+            <div className="space-y-6">
+              <div>
+                <p className="text-sm text-gray-600 mb-1">Time Remaining:</p>
+                <div className="text-4xl font-mono font-bold text-center py-4 bg-gray-100 rounded-lg">
+                  {formatTimeRemaining(timeRemaining)}
+                </div>
+                
+                <div className="mt-4 bg-blue-50 p-3 rounded-md">
+                  <p className="text-blue-800">
+                    <span className="font-semibold">Fast duration: </span>
+                    {formatDurationOption(fastDuration)}
+                  </p>
+                  <p className="text-blue-800 mt-1">
+                    <span className="font-semibold">Started: </span>
+                    {new Date(fastStartTime).toLocaleString()}
+                  </p>
+                  <p className="text-blue-800 mt-1">
+                    <span className="font-semibold">Finishing: </span>
+                    {new Date(fastStartTime + (fastDuration * 60 * 60 * 1000)).toLocaleString()}
+                  </p>
+                </div>
+              </div>
+              
+              <button 
+                onClick={endFast}
+                className="w-full bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-4 rounded-md transition"
+              >
+                End Fast Early
+              </button>
+            </div>
+          )}
+          
+          <div className="mt-6 bg-yellow-50 p-4 rounded-md">
+            <h3 className="font-semibold text-yellow-800">Fasting Tips</h3>
+            <ul className="mt-2 space-y-2 list-disc pl-5 text-yellow-800">
+              <li>Drink plenty of water throughout your fast</li>
+              <li>Add a pinch of Himalayan salt to maintain electrolytes</li>
+              <li>Herbal teas are allowed during your water fast</li>
+              <li>If you feel dizzy or unwell, please stop fasting</li>
+              <li>Consult with your healthcare provider before starting extended fasting</li>
+            </ul>
+          </div>
+        </div>
+        
+        {/* Water intake tracker */}
+        <div className="bg-white rounded-lg shadow-md p-6">
+          <h2 className="text-2xl font-semibold mb-4">Water Intake</h2>
+          
+          <div className="mb-6">
+            <div className="flex justify-between mb-2">
+              <span className="text-sm font-medium text-gray-700">Daily Goal: {WATER_GOAL} oz</span>
+              <span className="text-sm font-medium text-gray-700">{waterIntake} / {WATER_GOAL} oz</span>
+            </div>
+            
+            <div className="w-full bg-gray-200 rounded-full h-4">
+              <div 
+                className="bg-blue-600 h-4 rounded-full transition-all duration-500"
+                style={{ width: `${Math.min(100, (waterIntake / WATER_GOAL) * 100)}%` }}
+              ></div>
+            </div>
+            
+            {waterIntake >= WATER_GOAL && (
+              <div className="mt-2 text-green-600 text-sm font-medium">
+                🎉 Daily goal achieved! Great job staying hydrated!
+              </div>
+            )}
+          </div>
+          
+          <div className="space-y-4">
+            <div className="flex items-center">
+              <select
+                className="w-24 p-2 border border-gray-300 rounded-l-md"
+                value={waterToAdd}
+                onChange={(e) => setWaterToAdd(e.target.value)}
+              >
+                <option value="4">4 oz</option>
+                <option value="8">8 oz</option>
+                <option value="12">12 oz</option>
+                <option value="16">16 oz</option>
+                <option value="20">20 oz</option>
+                <option value="24">24 oz</option>
+                <option value="32">32 oz</option>
+              </select>
+              <button
+                onClick={addWater}
+                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-r-md transition"
+              >
+                Add Water
+              </button>
+            </div>
+            
+            <button
+              onClick={resetWater}
+              className="w-full border border-gray-300 hover:bg-gray-100 text-gray-800 font-medium py-2 px-4 rounded-md transition"
+            >
+              Reset Water Intake
+            </button>
+          </div>
+          
+          <div className="mt-6 bg-blue-50 p-4 rounded-md">
+            <h3 className="font-semibold text-blue-800">Hydration Tips for Fasting</h3>
+            <ul className="mt-2 space-y-2 list-disc pl-5 text-blue-800">
+              <li>Drink at least 50oz of water daily during your fast</li>
+              <li>Sip water throughout the day rather than large amounts at once</li>
+              <li>Room temperature water is easier on your system than cold water</li>
+              <li>Herbal teas count toward your water goal</li>
+              <li>Monitor urine color (pale yellow indicates good hydration)</li>
+            </ul>
+          </div>
+          
+          <div className="mt-6 p-4 bg-purple-50 rounded-md">
+            <h3 className="font-semibold text-purple-800">Benefits of Water Fasting</h3>
+            <p className="mt-2 text-purple-800">
+              Water fasting can help support your candida cleanse by giving your digestive system a rest, 
+              promoting autophagy (cellular cleaning), and helping to flush toxins. Stay hydrated and 
+              listen to your body throughout the process.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default WaterFast; 

@@ -10,6 +10,7 @@ import RecipeDatabase from './pages/RecipeDatabase';
 import ProgressTracker from './pages/ProgressTracker';
 import ChatAssistant from './pages/ChatAssistant';
 import ShoppingPlan from './pages/ShoppingPlan';
+import WaterFast from './pages/WaterFast';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 
@@ -30,6 +31,7 @@ function App() {
             <Route path="/progress" element={<ProgressTracker />} />
             <Route path="/assistant" element={<ChatAssistant />} />
             <Route path="/shopping" element={<ShoppingPlan />} />
+            <Route path="/water-fast" element={<WaterFast />} />
           </Routes>
         </main>
         <Footer />
