@@ -322,7 +322,7 @@ const WaterFast = () => {
                     </div>
                     <div className="flex justify-between mt-1">
                       <span className="text-xs text-gray-500">0%</span>
-                      <span className="text-xs text-gray-500">{Math.round(calculateFastProgress())}%</span>
+                      <span className="text-xs font-medium text-green-600">{Math.round(calculateFastProgress())}% Complete</span>
                       <span className="text-xs text-gray-500">100%</span>
                     </div>
                   </div>
