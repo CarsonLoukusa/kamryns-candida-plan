@@ -10,8 +10,24 @@ const WaterFast = () => {
   const [waterToAdd, setWaterToAdd] = useState(8); // Default to 8 oz
   const [timeRemaining, setTimeRemaining] = useState(null);
   const [isFasting, setIsFasting] = useState(false);
+  const [motivationMessage, setMotivationMessage] = useState('');
+  const [showMotivation, setShowMotivation] = useState(false);
   
   const WATER_GOAL = 50; // Kamryn's daily water goal in ounces
+  
+  // Motivation messages array
+  const motivationMessages = [
+    "Great job, Kamryn! Keep hydrating! 💧",
+    "You're doing amazing! Every ounce counts! 💪",
+    "Stay strong! Your body is thanking you for this water! 🌱",
+    "Hydration is key to healing! You've got this! ✨",
+    "Amazing effort! Keep those toxins flushing out! 🌊",
+    "Water is your superpower during this fast! Keep it up! ⚡",
+    "Your candida cleanse is working better with every sip! 🌟",
+    "You're making Carson proud with your dedication! 🎉",
+    "Staying hydrated will help you feel your best! Keep going! 💙",
+    "That's the way to do it! Your body loves this water! 💯"
+  ];
   
   // Set default custom start time to current date/time if not already fasting
   useEffect(() => {
@@ -65,6 +81,20 @@ const WaterFast = () => {
     };
   }, [isFasting, fastStartTime, fastDuration]);
   
+  // Auto-hide motivation message after 5 seconds
+  useEffect(() => {
+    let timer;
+    if (showMotivation) {
+      timer = setTimeout(() => {
+        setShowMotivation(false);
+      }, 5000);
+    }
+    
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, [showMotivation]);
+  
   // Save to localStorage when values change
   useEffect(() => {
     if (isFasting) {
@@ -109,11 +139,16 @@ const WaterFast = () => {
     localStorage.setItem('waterIntake', 0);
   };
   
-  // Add water to daily intake
+  // Add water to daily intake and show motivation message
   const addWater = () => {
     const newAmount = waterIntake + parseInt(waterToAdd);
     setWaterIntake(newAmount);
     localStorage.setItem('waterIntake', newAmount);
+    
+    // Show random motivation message
+    const randomIndex = Math.floor(Math.random() * motivationMessages.length);
+    setMotivationMessage(motivationMessages[randomIndex]);
+    setShowMotivation(true);
   };
   
   // Format time remaining
@@ -273,6 +308,13 @@ const WaterFast = () => {
             {waterIntake >= WATER_GOAL && (
               <div className="mt-2 text-green-600 text-sm font-medium">
                 🎉 Daily goal achieved! Great job staying hydrated!
+              </div>
+            )}
+            
+            {/* Motivation message */}
+            {showMotivation && (
+              <div className="mt-4 p-3 bg-green-50 text-green-700 rounded-md animate-fade-in-out transition-all">
+                {motivationMessage}
               </div>
             )}
           </div>
