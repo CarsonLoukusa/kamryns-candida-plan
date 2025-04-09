@@ -12,10 +12,12 @@ const WaterFast = () => {
   const [isFasting, setIsFasting] = useState(false);
   const [motivationMessage, setMotivationMessage] = useState('');
   const [showMotivation, setShowMotivation] = useState(false);
+  const [fastMessage, setFastMessage] = useState('');
+  const [showFastMessage, setShowFastMessage] = useState(false);
   
   const WATER_GOAL = 50; // Kamryn's daily water goal in ounces
   
-  // Motivation messages array
+  // Motivation messages array for water intake
   const motivationMessages = [
     "Great job, Kamryn! Keep hydrating! 💧",
     "You're doing amazing! Every ounce counts! 💪",
@@ -27,6 +29,20 @@ const WaterFast = () => {
     "You're making Carson proud with your dedication! 🎉",
     "Staying hydrated will help you feel your best! Keep going! 💙",
     "That's the way to do it! Your body loves this water! 💯"
+  ];
+  
+  // Motivation messages array for fasting
+  const fastMotivationMessages = [
+    "You've got this, Kamryn! Your fast has begun! 🎯",
+    "Your healing journey continues with each hour of fasting! 💪",
+    "Be proud of yourself! This fast is helping your body heal! ✨",
+    "Your determination is inspiring! Keep going strong! 🔥",
+    "Every minute of fasting is helping fight candida! 🦠",
+    "Your body is thanking you for this reset! You're amazing! 🌟",
+    "Carson is so proud of your commitment to healing! 💕",
+    "Trust the process! Your body knows how to heal! 🧘‍♀️",
+    "You're doing something incredible for your health! Keep it up! 🏆",
+    "This temporary challenge brings lasting health benefits! You can do it! 🌱"
   ];
   
   // Set default custom start time to current date/time if not already fasting
@@ -95,6 +111,20 @@ const WaterFast = () => {
     };
   }, [showMotivation]);
   
+  // Auto-hide fast motivation message after 8 seconds
+  useEffect(() => {
+    let timer;
+    if (showFastMessage) {
+      timer = setTimeout(() => {
+        setShowFastMessage(false);
+      }, 8000);
+    }
+    
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, [showFastMessage]);
+  
   // Save to localStorage when values change
   useEffect(() => {
     if (isFasting) {
@@ -124,6 +154,11 @@ const WaterFast = () => {
     setIsFasting(true);
     localStorage.setItem('fastStartTime', startTime);
     localStorage.setItem('isFasting', 'true');
+    
+    // Show random fast motivation message
+    const randomIndex = Math.floor(Math.random() * fastMotivationMessages.length);
+    setFastMessage(fastMotivationMessages[randomIndex]);
+    setShowFastMessage(true);
   };
   
   // End current fast
@@ -265,6 +300,13 @@ const WaterFast = () => {
                     {new Date(fastStartTime + (fastDuration * 60 * 60 * 1000)).toLocaleString()}
                   </p>
                 </div>
+                
+                {/* Fast motivation message */}
+                {showFastMessage && (
+                  <div className="mt-4 p-3 bg-purple-50 text-purple-700 rounded-md animate-fade-in-out transition-all">
+                    {fastMessage}
+                  </div>
+                )}
               </div>
               
               <button 
