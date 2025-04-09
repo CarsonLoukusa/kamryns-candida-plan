@@ -9,6 +9,7 @@ const WaterFast = () => {
   const [waterIntake, setWaterIntake] = useState(0);
   const [waterToAdd, setWaterToAdd] = useState(8); // Default to 8 oz
   const [timeRemaining, setTimeRemaining] = useState(null);
+  const [timeFasted, setTimeFasted] = useState(null);
   const [isFasting, setIsFasting] = useState(false);
   const [motivationMessage, setMotivationMessage] = useState('');
   const [showMotivation, setShowMotivation] = useState(false);
@@ -71,7 +72,7 @@ const WaterFast = () => {
     if (savedCustomStartTime) setCustomStartTime(savedCustomStartTime);
   }, []);
   
-  // Update time remaining every second
+  // Update time remaining and time fasted every second
   useEffect(() => {
     let timer;
     
@@ -80,14 +81,17 @@ const WaterFast = () => {
         const now = Date.now();
         const endTime = fastStartTime + (fastDuration * 60 * 60 * 1000);
         const remaining = endTime - now;
+        const fasted = now - fastStartTime;
         
         if (remaining <= 0) {
           setTimeRemaining(0);
+          setTimeFasted(fastDuration * 60 * 60 * 1000);
           setIsFasting(false);
           localStorage.setItem('isFasting', 'false');
           clearInterval(timer);
         } else {
           setTimeRemaining(remaining);
+          setTimeFasted(fasted);
         }
       }, 1000);
     }
@@ -165,6 +169,7 @@ const WaterFast = () => {
   const endFast = () => {
     setIsFasting(false);
     setTimeRemaining(null);
+    setTimeFasted(null);
     localStorage.setItem('isFasting', 'false');
   };
   
@@ -196,6 +201,25 @@ const WaterFast = () => {
     const seconds = totalSeconds % 60;
     
     return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  };
+  
+  // Format time fasted
+  const formatTimeFasted = (ms) => {
+    if (!ms) return '--:--:--';
+    
+    const totalSeconds = Math.floor(ms / 1000);
+    const hours = Math.floor(totalSeconds / 3600);
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const seconds = totalSeconds % 60;
+    
+    return `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+  };
+  
+  // Calculate percent of fast completed
+  const calculateFastProgress = () => {
+    if (!timeFasted || !fastDuration) return 0;
+    const totalFastTimeMs = fastDuration * 60 * 60 * 1000;
+    return Math.min(100, (timeFasted / totalFastTimeMs) * 100);
   };
   
   // Format duration options
@@ -280,13 +304,39 @@ const WaterFast = () => {
             </div>
           ) : (
             <div className="space-y-6">
-              <div>
-                <p className="text-sm text-gray-600 mb-1">Time Remaining:</p>
-                <div className="text-4xl font-mono font-bold text-center py-4 bg-gray-100 rounded-lg">
-                  {formatTimeRemaining(timeRemaining)}
+              <div className="grid grid-cols-1 gap-4">
+                {/* Time fasted */}
+                <div>
+                  <p className="text-sm text-gray-600 mb-1">Time Fasted:</p>
+                  <div className="text-4xl font-mono font-bold text-center py-4 bg-green-50 rounded-lg">
+                    {formatTimeFasted(timeFasted)}
+                  </div>
+                  
+                  {/* Fast progress bar */}
+                  <div className="mt-2">
+                    <div className="w-full bg-gray-200 rounded-full h-3">
+                      <div 
+                        className="bg-green-600 h-3 rounded-full transition-all duration-500"
+                        style={{ width: `${calculateFastProgress()}%` }}
+                      ></div>
+                    </div>
+                    <div className="flex justify-between mt-1">
+                      <span className="text-xs text-gray-500">0%</span>
+                      <span className="text-xs text-gray-500">{Math.round(calculateFastProgress())}%</span>
+                      <span className="text-xs text-gray-500">100%</span>
+                    </div>
+                  </div>
                 </div>
                 
-                <div className="mt-4 bg-blue-50 p-3 rounded-md">
+                {/* Time remaining */}
+                <div>
+                  <p className="text-sm text-gray-600 mb-1">Time Remaining:</p>
+                  <div className="text-4xl font-mono font-bold text-center py-4 bg-gray-100 rounded-lg">
+                    {formatTimeRemaining(timeRemaining)}
+                  </div>
+                </div>
+                
+                <div className="bg-blue-50 p-3 rounded-md">
                   <p className="text-blue-800">
                     <span className="font-semibold">Fast duration: </span>
                     {formatDurationOption(fastDuration)}
@@ -303,7 +353,7 @@ const WaterFast = () => {
                 
                 {/* Fast motivation message */}
                 {showFastMessage && (
-                  <div className="mt-4 p-3 bg-purple-50 text-purple-700 rounded-md animate-fade-in-out transition-all">
+                  <div className="p-3 bg-purple-50 text-purple-700 rounded-md animate-fade-in-out transition-all">
                     {fastMessage}
                   </div>
                 )}
