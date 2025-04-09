@@ -4,6 +4,8 @@ const WaterFast = () => {
   // State for fast duration and water tracking
   const [fastDuration, setFastDuration] = useState(24); // Default to 24 hours
   const [fastStartTime, setFastStartTime] = useState(null);
+  const [customStartDate, setCustomStartDate] = useState('');
+  const [customStartTime, setCustomStartTime] = useState('');
   const [waterIntake, setWaterIntake] = useState(0);
   const [waterToAdd, setWaterToAdd] = useState(8); // Default to 8 oz
   const [timeRemaining, setTimeRemaining] = useState(null);
@@ -11,17 +13,30 @@ const WaterFast = () => {
   
   const WATER_GOAL = 50; // Kamryn's daily water goal in ounces
   
+  // Set default custom start time to current date/time if not already fasting
+  useEffect(() => {
+    if (!isFasting && !customStartDate) {
+      const now = new Date();
+      setCustomStartDate(now.toISOString().split('T')[0]);
+      setCustomStartTime(now.toTimeString().split(' ')[0].substring(0, 5));
+    }
+  }, [isFasting, customStartDate]);
+  
   // Load saved data from localStorage on component mount
   useEffect(() => {
     const savedFastStart = localStorage.getItem('fastStartTime');
     const savedFastDuration = localStorage.getItem('fastDuration');
     const savedWaterIntake = localStorage.getItem('waterIntake');
     const savedIsFasting = localStorage.getItem('isFasting');
+    const savedCustomStartDate = localStorage.getItem('customStartDate');
+    const savedCustomStartTime = localStorage.getItem('customStartTime');
     
     if (savedFastStart) setFastStartTime(parseInt(savedFastStart));
     if (savedFastDuration) setFastDuration(parseInt(savedFastDuration));
     if (savedWaterIntake) setWaterIntake(parseInt(savedWaterIntake));
     if (savedIsFasting) setIsFasting(savedIsFasting === 'true');
+    if (savedCustomStartDate) setCustomStartDate(savedCustomStartDate);
+    if (savedCustomStartTime) setCustomStartTime(savedCustomStartTime);
   }, []);
   
   // Update time remaining every second
@@ -56,13 +71,25 @@ const WaterFast = () => {
       localStorage.setItem('fastStartTime', fastStartTime);
       localStorage.setItem('fastDuration', fastDuration);
       localStorage.setItem('isFasting', isFasting);
+      localStorage.setItem('customStartDate', customStartDate);
+      localStorage.setItem('customStartTime', customStartTime);
     }
     localStorage.setItem('waterIntake', waterIntake);
-  }, [fastStartTime, fastDuration, waterIntake, isFasting]);
+  }, [fastStartTime, fastDuration, waterIntake, isFasting, customStartDate, customStartTime]);
   
   // Start a new fast
   const startFast = () => {
-    const startTime = Date.now();
+    let startTime;
+    
+    if (customStartDate && customStartTime) {
+      // Use the custom date and time
+      const customDateTime = new Date(`${customStartDate}T${customStartTime}`);
+      startTime = customDateTime.getTime();
+    } else {
+      // Use current time if no custom time is set
+      startTime = Date.now();
+    }
+    
     setFastStartTime(startTime);
     setIsFasting(true);
     localStorage.setItem('fastStartTime', startTime);
@@ -143,6 +170,35 @@ const WaterFast = () => {
                   <option value="48">{formatDurationOption(48)}</option>
                   <option value="72">{formatDurationOption(72)}</option>
                 </select>
+              </div>
+              
+              <div className="p-4 bg-gray-50 rounded-md">
+                <h3 className="text-sm font-medium text-gray-700 mb-3">Set custom start time:</h3>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="customStartDate" className="block text-xs text-gray-500 mb-1">Date</label>
+                    <input 
+                      type="date" 
+                      id="customStartDate"
+                      className="w-full p-2 border border-gray-300 rounded-md"
+                      value={customStartDate}
+                      onChange={(e) => setCustomStartDate(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="customStartTime" className="block text-xs text-gray-500 mb-1">Time</label>
+                    <input 
+                      type="time" 
+                      id="customStartTime"
+                      className="w-full p-2 border border-gray-300 rounded-md"
+                      value={customStartTime}
+                      onChange={(e) => setCustomStartTime(e.target.value)}
+                    />
+                  </div>
+                </div>
+                <p className="mt-2 text-xs text-gray-500">
+                  For example, if you started fasting at 9:00 AM today, set the date to today and time to 09:00
+                </p>
               </div>
               
               <button 
